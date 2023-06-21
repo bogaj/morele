@@ -259,7 +259,7 @@ public void choosingGuideTest(){
     @AfterMethod
 
     public void afterTest() {
-        //driver.close();
-        // driver.quit();
+        driver.close();
+        driver.quit();
     }
 }
