@@ -35,7 +35,7 @@ public class moreleTests {
         cookiesAcceptButton.click();
     }
 
-    @Test
+    @Test(priority = 1)
     public void correctLoginTest() {
         WebElement loginButton = driver.findElement(By.xpath("//span[contains(text(),'Zaloguj się')]"));
         loginButton.click();
@@ -53,7 +53,7 @@ public class moreleTests {
         assertEquals(welcomeSign.getText(), "Witaj");
     }
 
-    @Test
+    @Test(priority = 2)
 
     public void asUserLoginAndLogoutUsingValidLoginAndPasswordTest() {
         WebElement loginButton = driver.findElement(By.xpath("//span[contains(text(),'Zaloguj się')]"));
@@ -82,7 +82,7 @@ public class moreleTests {
         assertTrue(loginButton.getText().contains("Zaloguj się"));
     }
 
-    @Test
+    @Test(priority = 3)
     public void loginUsingIncorrectEmailTest() {
 
         WebElement loginButton = driver.findElement(By.xpath("//span[contains(text(),'Zaloguj się')]"));
@@ -104,7 +104,7 @@ public class moreleTests {
         //    assertTrue(incorrectEmailNotification.isDisplayed());
     }
 
-    @Test
+    @Test(priority = 4)
     public void loginUsingIncorrectDataTest() {
 
         WebElement loginButton = driver.findElement(By.xpath("//span[contains(text(),'Zaloguj się')]"));
@@ -128,7 +128,7 @@ public class moreleTests {
 
     }
 
-    @Test
+    @Test(priority = 5)
     public void searchEngineTests() {
         WebElement searchEngineField = driver.findElement(By.xpath("//div[@class='h-quick-search js--fake-search-bar']//input[@placeholder='Szukaj w ofercie 2 milionów produktów']"));
         //czy może być enter czy ma kliknąć w "lupke"?
@@ -143,7 +143,7 @@ public class moreleTests {
 
     }
 
-    @Test
+    @Test(priority = 6)
     public void choosingLaptopCategoryTest() {
         WebElement laptopButtonFromMenu = driver.findElement(By.xpath("//span[normalize-space()='Laptopy']"));
         laptopButtonFromMenu.click();
@@ -163,7 +163,7 @@ public class moreleTests {
 
     }
 
-    @Test
+    @Test(priority = 7)
     public void adProductToWishListTest() {
 
         WebElement loginButton = driver.findElement(By.xpath("//span[contains(text(),'Zaloguj się')]"));
@@ -204,7 +204,7 @@ public class moreleTests {
         assertTrue(productAmountList.getText().contains("1"));
     }
 
-    @Test
+    @Test(priority = 8)
     public void addToCartWithoutLoginTest() {
 
         WebElement laptopButtonFromMenu = driver.findElement(By.xpath("//span[normalize-space()='Laptopy']"));
@@ -226,7 +226,7 @@ public class moreleTests {
         assertTrue(productAddedToCartSign.getText().contains("Produkt dodany do koszyka"));
     }
 
-    @Test
+    @Test(priority = 9)
     public void newsletterSignupTest() {
         WebElement discountCodeButton = driver.findElement(By.xpath("//span[normalize-space()='ODBIERZ KOD RABATOWY']"));
         discountCodeButton.click();
@@ -244,7 +244,7 @@ public class moreleTests {
         assertTrue(newsletterSignupMsg.getText().contains("Dziękujemy za zapisanie się do newslettera!"));
     }
 
-    @Test
+    @Test(priority = 10)
 public void choosingGuideTest(){
         WebElement guideButton = driver.findElement(By.xpath("//span[@class='h-menu-item-value '][normalize-space()='PORADNIKI']"));
         guideButton.click();
