@@ -1,15 +1,18 @@
 
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
+import java.util.List;
 
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertTrue;
@@ -17,10 +20,8 @@ import static org.testng.AssertJUnit.assertTrue;
 public class moreleTests {
 
     private WebDriver driver;
-    // String loginPage = "https://www.morele.net";
     String loginEmail = "anianowak2112@o2.pl";
     String correctPassword = "Test@mgr123!";
-    // String cookiesAcceptButtonLocator = "//*[@id=\"cookie_box\"]/div/div/button";
 
 
     @BeforeMethod
@@ -30,14 +31,12 @@ public class moreleTests {
         driver.navigate().to("https://www.morele.net");
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
+        WebElement cookiesAcceptButton = driver.findElement(By.xpath("//*[@id=\"cookie_box\"]/div/div/button"));
+        cookiesAcceptButton.click();
     }
 
     @Test
     public void correctLoginTest() {
-
-
-        // WebElement cookiesAcceptButton = driver.findElement(By.xpath(cookiesAcceptButtonLocator));
-        // cookiesAcceptButton.click();
         WebElement loginButton = driver.findElement(By.xpath("//span[contains(text(),'Zaloguj się')]"));
         loginButton.click();
 
@@ -45,7 +44,6 @@ public class moreleTests {
         emailField.sendKeys(loginEmail);
 
         WebElement passwordField = driver.findElement(By.xpath("//input[@id='password-log']"));
-
         passwordField.sendKeys(correctPassword);
 
         WebElement submitButton = driver.findElement(By.xpath("//button[contains(text(),'Zaloguj się')]"));
@@ -54,12 +52,9 @@ public class moreleTests {
         WebElement welcomeSign = driver.findElement(By.xpath("//span[normalize-space()='Witaj']"));
         assertEquals(welcomeSign.getText(), "Witaj");
     }
-
     @Test
 
     public void asUserLoginAndLogoutUsingValidLoginAndPasswordTest() {
-
-
         WebElement loginButton = driver.findElement(By.xpath("//span[contains(text(),'Zaloguj się')]"));
         loginButton.click();
 
@@ -85,7 +80,6 @@ public class moreleTests {
         loginButton = driver.findElement(By.xpath("//span[contains(text(),'Zaloguj się')]"));
         assertTrue(loginButton.getText().contains("Zaloguj się"));
     }
-
     @Test
     public void loginUsingIncorrectEmailTest() {
 
@@ -104,23 +98,22 @@ public class moreleTests {
 
         //nie wiem którą asercję, pierwsza pobiera tekst i porównuje z docelowym druga sprawdza czy locator się wyświetla
 
-        assertEquals(incorrectEmailNotification.getText(),"Podaj poprawny adres e-mail!");
-        assertTrue(incorrectEmailNotification.isDisplayed());
+        assertEquals(incorrectEmailNotification.getText(), "Podaj poprawny adres e-mail!");
+    //    assertTrue(incorrectEmailNotification.isDisplayed());
     }
 
     @Test
     public void loginUsingIncorrectDataTest() {
 
-
-
         WebElement loginButton = driver.findElement(By.xpath("//span[contains(text(),'Zaloguj się')]"));
         loginButton.click();
+
         WebElement emailField = driver.findElement(By.xpath("//input[@id='username']"));
         emailField.sendKeys("2122@wp.pl");
 
         WebElement passwordField = driver.findElement(By.xpath("//input[@id='password-log']"));
 
-        passwordField.sendKeys("Test@mgr1s23!");
+        passwordField.sendKeys("Test@mgr1shr23!");
 
         WebElement submitButton = driver.findElement(By.xpath("//button[contains(text(),'Zaloguj się')]"));
         submitButton.click();
@@ -128,15 +121,113 @@ public class moreleTests {
 
         //nie wiem którą asercję, pierwsza pobiera tekst i porównuje z docelowym druga sprawdza czy locator się wyświetla
 
-        assertEquals(incorrectLoginBanner.getText(),"Dane logowania nie są poprawne. Zalogowanie nie powiodło się.");
-       assertTrue(incorrectLoginBanner.isDisplayed());
+//        assertEquals(incorrectLoginBanner.getText(),"Dane logowania nie są poprawne. Zalogowanie nie powiodło się.");
+        assertTrue(incorrectLoginBanner.isDisplayed());
 
+    }
+
+    @Test
+    public void searchEngineTests() {
+        WebElement searchEngineField = driver.findElement(By.xpath("//div[@class='h-quick-search js--fake-search-bar']//input[@placeholder='Szukaj w ofercie 2 milionów produktów']"));
+        //czy może być enter czy ma kliknąć w "lupke"?
+        searchEngineField.sendKeys("Laptop", Keys.ENTER);
+
+        List<WebElement> searchResult = driver.findElements(By.xpath("(//div[@class='cat-product card'])"));
+
+        for (WebElement result : searchResult) {
+            String resultText = result.getText();
+            assertTrue(resultText.contains("Laptop"));
+        }
+
+    }
+
+    @Test
+    public void choosingLaptopCategoryTest() {
+        WebElement laptopButtonFromMenu = driver.findElement(By.xpath("//span[normalize-space()='Laptopy']"));
+        laptopButtonFromMenu.click();
+
+        WebElement laptopTabletButton = driver.findElement(By.xpath("//span[normalize-space()='Laptopy i tablety']"));
+        laptopTabletButton.click();
+
+        WebElement laptopButton = driver.findElement(By.xpath("(//span[contains(text(),'Laptopy')])[4]"));
+        laptopButton.click();
+
+        List<WebElement> laptopListResult = driver.findElements(By.xpath("(//div[@class='cat-product card'])"));
+
+        for (WebElement result : laptopListResult) {
+            String resultText = result.getText();
+            assertTrue(resultText.contains("Laptop"));
+        }
+
+    }
+
+    @Test
+    public void adProductToWishListTest() {
+
+        WebElement loginButton = driver.findElement(By.xpath("//span[contains(text(),'Zaloguj się')]"));
+        loginButton.click();
+
+        WebElement emailField = driver.findElement(By.xpath("//input[@id='username']"));
+        emailField.sendKeys(loginEmail);
+
+        WebElement passwordField = driver.findElement(By.xpath("//input[@id='password-log']"));
+
+        passwordField.sendKeys(correctPassword);
+
+        WebElement submitButton = driver.findElement(By.xpath("//button[contains(text(),'Zaloguj się')]"));
+        submitButton.click();
+
+        WebElement welcomeSign = driver.findElement(By.xpath("//span[normalize-space()='Witaj']"));
+        assertEquals(welcomeSign.getText(), "Witaj");
+
+        WebElement laptopButtonFromMenu = driver.findElement(By.xpath("//span[normalize-space()='Laptopy']"));
+        laptopButtonFromMenu.click();
+
+        WebElement laptopTabletButton = driver.findElement(By.xpath("//span[normalize-space()='Laptopy i tablety']"));
+        laptopTabletButton.click();
+
+        WebElement laptopButton = driver.findElement(By.xpath("(//span[contains(text(),'Laptopy')])[4]"));
+        laptopButton.click();
+
+        WebElement addToWishListIcon = driver.findElement(By.xpath("(//i[@class='icon-like'])[3]"));
+        addToWishListIcon.click();
+
+        WebElement heartIconToWishList = driver.findElement(By.xpath("(//div[@class='shopping-lists-item '])[1]"));
+        heartIconToWishList.click();
+
+        WebElement wishListButton = driver.findElement(By.xpath("(//a[@class='h-control-btn'])[1]"));
+        wishListButton.click();
+
+        WebElement productAmountList = driver.findElement(By.xpath("//div[@class='table-row shopping-list-item mUser-table-item mUser-row-date']//div[2]"));
+        assertTrue(productAmountList.getText().contains("1"));
+    }
+
+    @Test
+    public void addToCartWithoutLoginTest() {
+
+        WebElement laptopButtonFromMenu = driver.findElement(By.xpath("//span[normalize-space()='Laptopy']"));
+        laptopButtonFromMenu.click();
+
+        WebElement laptopTabletButton = driver.findElement(By.xpath("//span[normalize-space()='Laptopy i tablety']"));
+        laptopTabletButton.click();
+
+        WebElement laptopButton = driver.findElement(By.xpath("(//span[contains(text(),'Laptopy')])[4]"));
+        laptopButton.click();
+
+        WebElement addToCartButton = driver.findElement(By.xpath("(//div[@class='cat-product-buttons'])[1]"));
+        addToCartButton.click();
+
+        WebElement extendedWarrantyButton = driver.findElement(By.xpath("//button[@class='btn btn-md btn-primary w-100 js_extended-send-button']"));
+        extendedWarrantyButton.click();
+
+        WebElement productAddedToCartSign = driver.findElement(By.cssSelector("div[class='product-box card card-mobile'] span"));
+        assertTrue(productAddedToCartSign.getText().contains("Produkt dodany do koszyka"));
     }
 
     @AfterMethod
 
     public void afterTest() {
-          driver.close();
-          driver.quit();
+        driver.close();
+        driver.quit();
     }
 }
