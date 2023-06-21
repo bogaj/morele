@@ -52,6 +52,7 @@ public class moreleTests {
         WebElement welcomeSign = driver.findElement(By.xpath("//span[normalize-space()='Witaj']"));
         assertEquals(welcomeSign.getText(), "Witaj");
     }
+
     @Test
 
     public void asUserLoginAndLogoutUsingValidLoginAndPasswordTest() {
@@ -80,6 +81,7 @@ public class moreleTests {
         loginButton = driver.findElement(By.xpath("//span[contains(text(),'Zaloguj się')]"));
         assertTrue(loginButton.getText().contains("Zaloguj się"));
     }
+
     @Test
     public void loginUsingIncorrectEmailTest() {
 
@@ -99,7 +101,7 @@ public class moreleTests {
         //nie wiem którą asercję, pierwsza pobiera tekst i porównuje z docelowym druga sprawdza czy locator się wyświetla
 
         assertEquals(incorrectEmailNotification.getText(), "Podaj poprawny adres e-mail!");
-    //    assertTrue(incorrectEmailNotification.isDisplayed());
+        //    assertTrue(incorrectEmailNotification.isDisplayed());
     }
 
     @Test
@@ -224,10 +226,40 @@ public class moreleTests {
         assertTrue(productAddedToCartSign.getText().contains("Produkt dodany do koszyka"));
     }
 
+    @Test
+    public void newsletterSignupTest() {
+        WebElement discountCodeButton = driver.findElement(By.xpath("//span[normalize-space()='ODBIERZ KOD RABATOWY']"));
+        discountCodeButton.click();
+
+        WebElement emailAddressForNewsletterField = driver.findElement(By.xpath("//input[@class='form-control form-control-material js--newsletter-focus']"));
+        emailAddressForNewsletterField.sendKeys("etesttes@wp.pl");
+
+        WebElement consentCheckbox = driver.findElement(By.xpath("(//span[@class='input'])[1]"));
+        consentCheckbox.click();
+
+        WebElement singUpButton = driver.findElement(By.xpath("(//input[@value='Zapisz mnie'])[1]"));
+        singUpButton.click();
+
+        WebElement newsletterSignupMsg = driver.findElement(By.xpath("//h1[@class='newsletter-header__heading subscribtion-value new-subscriber text-center']"));
+        assertTrue(newsletterSignupMsg.getText().contains("Dziękujemy za zapisanie się do newslettera!"));
+    }
+
+    @Test
+public void choosingGuideTest(){
+        WebElement guideButton = driver.findElement(By.xpath("//span[@class='h-menu-item-value '][normalize-space()='PORADNIKI']"));
+        guideButton.click();
+
+        WebElement tabletForCarGuide = driver.findElement(By.xpath("//a[@title='Jaki tablet do samochodu wybrać?']"));
+        tabletForCarGuide.click();
+
+        WebElement headTabletForCarGuide = driver.findElement(By.xpath("//div[@class='single-news-head']"));
+        assertTrue(headTabletForCarGuide.getText().contains("Tablet do samochodu może być bardzo przydatną rzeczą"));
+
+    }
     @AfterMethod
 
     public void afterTest() {
-        driver.close();
-        driver.quit();
+        //driver.close();
+        // driver.quit();
     }
 }
