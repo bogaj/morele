@@ -3,6 +3,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
 
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -25,7 +26,7 @@ public class moreleTests {
     @BeforeMethod
     public void beforeTest() {
         System.setProperty("webdriver.chrome.driver", "C:/Drivers/chromedriver.exe");
-
+        ChromeOptions options = new ChromeOptions();
 
         Map<String, Object> prefs = new HashMap<>();
         prefs.put("profile.default_content_setting_values.notifications", 2);
@@ -34,13 +35,19 @@ public class moreleTests {
         prefs.put("profile.default_content_setting_values.media_stream_microphone", 2);
         prefs.put("profile.default_content_setting_values.permissionSecondary", 2);
 
-        ChromeOptions options = new ChromeOptions();
+        options.setExperimentalOption("prefs", prefs);
 
-        driver = new ChromeDriver();
+
+        options.addArguments("--start-maximized");
+        options.addArguments("--disable-infobars");
+        options.addArguments("--disable-extensions");
+
+        driver = new ChromeDriver(options);
 
         driver.navigate().to("https://www.morele.net");
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        driver.manage().window().maximize();
+
+
 
 
         WebElement cookiesAcceptButton = driver.findElement(By.xpath("//*[@id=\"cookie_box\"]/div/div/button"));
@@ -262,7 +269,7 @@ public class moreleTests {
     public void choosingGuideTest() {
         WebElement guideButton = driver.findElement(By.xpath("//span[@class='h-menu-item-value '][normalize-space()='PORADNIKI']"));
         guideButton.click();
- 
+
         WebElement tabletForCarGuide = driver.findElement(By.xpath("//a[contains(text(),'Jakie pancerne etui na telefon wybrać? Czym się ki')]"));
         tabletForCarGuide.click();
 
@@ -274,7 +281,7 @@ public class moreleTests {
     @AfterMethod
 
     public void afterTest() {
-        driver.close();
+   driver.close();
         driver.quit();
     }
 }
