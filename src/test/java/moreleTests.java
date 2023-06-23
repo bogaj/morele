@@ -1,10 +1,6 @@
-
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
 
 import org.testng.annotations.AfterMethod;
@@ -12,7 +8,9 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertTrue;
@@ -27,10 +25,24 @@ public class moreleTests {
     @BeforeMethod
     public void beforeTest() {
         System.setProperty("webdriver.chrome.driver", "C:/Drivers/chromedriver.exe");
+
+
+        Map<String, Object> prefs = new HashMap<>();
+        prefs.put("profile.default_content_setting_values.notifications", 2);
+        prefs.put("profile.default_content_setting_values.geolocation", 2);
+        prefs.put("profile.default_content_setting_values.media_stream_camera", 2);
+        prefs.put("profile.default_content_setting_values.media_stream_microphone", 2);
+        prefs.put("profile.default_content_setting_values.permissionSecondary", 2);
+
+        ChromeOptions options = new ChromeOptions();
+
         driver = new ChromeDriver();
+
         driver.navigate().to("https://www.morele.net");
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
+
+
         WebElement cookiesAcceptButton = driver.findElement(By.xpath("//*[@id=\"cookie_box\"]/div/div/button"));
         cookiesAcceptButton.click();
     }
@@ -163,6 +175,7 @@ public class moreleTests {
 
     }
 
+
     @Test(priority = 7)
     public void adProductToWishListTest() {
 
@@ -203,6 +216,7 @@ public class moreleTests {
         WebElement productAmountList = driver.findElement(By.xpath("//div[@class='table-row shopping-list-item mUser-table-item mUser-row-date']//div[2]"));
         assertTrue(productAmountList.getText().contains("1"));
     }
+
 
     @Test(priority = 8)
     public void addToCartWithoutLoginTest() {
@@ -245,17 +259,18 @@ public class moreleTests {
     }
 
     @Test(priority = 10)
-public void choosingGuideTest(){
+    public void choosingGuideTest() {
         WebElement guideButton = driver.findElement(By.xpath("//span[@class='h-menu-item-value '][normalize-space()='PORADNIKI']"));
         guideButton.click();
-
-        WebElement tabletForCarGuide = driver.findElement(By.xpath("//a[@title='Jaki tablet do samochodu wybrać?']"));
+ 
+        WebElement tabletForCarGuide = driver.findElement(By.xpath("//a[contains(text(),'Jakie pancerne etui na telefon wybrać? Czym się ki')]"));
         tabletForCarGuide.click();
 
         WebElement headTabletForCarGuide = driver.findElement(By.xpath("//div[@class='single-news-head']"));
-        assertTrue(headTabletForCarGuide.getText().contains("Tablet do samochodu może być bardzo przydatną rzeczą"));
+        assertTrue(headTabletForCarGuide.getText().contains("Pancerny case na telefon to najlepszy sposób, by ochronić urządzenie będące nieodłącznym elementem naszego życia."));
 
     }
+
     @AfterMethod
 
     public void afterTest() {
