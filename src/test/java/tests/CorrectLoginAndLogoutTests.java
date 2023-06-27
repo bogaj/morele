@@ -1,19 +1,12 @@
 package tests;
 
+import driver.DriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageObjects.LoginPage;
 import pageObjects.TopMenuPage;
-
-import java.time.Duration;
-import java.util.HashMap;
-import java.util.Map;
 
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertTrue;
@@ -23,10 +16,10 @@ public class CorrectLoginAndLogoutTests extends TestBase {
     @Test(priority = 2)
 
     public void asUserLoginAndLogoutUsingValidLoginAndPasswordTest() {
-        TopMenuPage topMenuPage = new TopMenuPage(driver);
+        TopMenuPage topMenuPage = new TopMenuPage();
         topMenuPage.clickOnLoginLink();
 
-        LoginPage loginPage = new LoginPage(driver);
+        LoginPage loginPage = new LoginPage();
         loginPage.typeIntoUserEmailField("otua.tamotua@op.pl");
 
         loginPage.typeIntoUserPasswordField("TestyME123$");
@@ -37,7 +30,7 @@ public class CorrectLoginAndLogoutTests extends TestBase {
 
        topMenuPage.moveToWelcomeLink();
 
-        WebElement logoutButton = driver.findElement(By.xpath("//a[normalize-space()='Wyloguj']"));
+        WebElement logoutButton = DriverManager.getWebDriver().findElement(By.xpath("//a[normalize-space()='Wyloguj']"));
         logoutButton.click();
         assertTrue(topMenuPage.loginLinkAfterCorrectLogout().contains("Zaloguj się"));
 

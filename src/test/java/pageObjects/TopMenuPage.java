@@ -1,5 +1,6 @@
 package pageObjects;
 
+import driver.DriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -7,6 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import waits.WaitForElement;
 
 public class TopMenuPage {
 
@@ -21,12 +23,12 @@ public class TopMenuPage {
 
     @FindBy(xpath = "//div[@class='h-quick-search js--fake-search-bar']//input[@placeholder='Szukaj w ofercie 2 milionów produktów']")
     private WebElement searchEngineField;
-    private WebDriver driver;
 
 
-    public TopMenuPage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+
+    public TopMenuPage() {
+
+        PageFactory.initElements(DriverManager.getWebDriver(),this);
     }
 
     public void clickOnLoginLink() {
@@ -38,22 +40,24 @@ public class TopMenuPage {
     }
 
     public void moveToWelcomeLink() {
-        Actions actions = new Actions(driver);
+        Actions actions = new Actions(DriverManager.getWebDriver());
         actions.moveToElement(welcomeSign).perform();
     }
 
     public String newNameButtonAfterCorrectLogin() {
-
+        WaitForElement.waitUntilElementIsVisible(welcomeSign);
         String welcomeAfterCorrectLoginSign = welcomeSign.getText();
         return welcomeAfterCorrectLoginSign;
     }
 
     public String loginLinkAfterCorrectLogout() {
+        WaitForElement.waitUntilElementIsVisible(loginButton);
         String loginLinkSign = loginButton.getText();
         return loginLinkSign;
     }
 
     public void typeToSearchEngineFieldAndConfirmByEnter(String nameOfProduct) {
+        WaitForElement.waitUntilElementIsVisible(searchEngineField);
         searchEngineField.sendKeys(nameOfProduct, Keys.ENTER);
     }
 }

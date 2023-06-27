@@ -12,10 +12,10 @@ public class FailedLoginTests extends TestBase {
     @Test(priority = 3)
     public void loginUsingIncorrectEmailTest() {
 
-        TopMenuPage topMenuPage = new TopMenuPage(driver);
+        TopMenuPage topMenuPage = new TopMenuPage();
         topMenuPage.clickOnLoginLink();
 
-        LoginPage loginPage = new LoginPage(driver);
+        LoginPage loginPage = new LoginPage();
         loginPage.typeIntoUserEmailField("otua.tamotua");
 
         loginPage.typeIntoUserPasswordField("TestyME123$");
@@ -27,9 +27,9 @@ public class FailedLoginTests extends TestBase {
     @Test(priority = 4)
     public void loginUsingIncorrectDataTest() {
 
-        TopMenuPage topMenuPage = new TopMenuPage(driver);
+        TopMenuPage topMenuPage = new TopMenuPage();
         topMenuPage.clickOnLoginLink();
-        LoginPage loginPage = new LoginPage(driver);
+        LoginPage loginPage = new LoginPage();
         loginPage.typeIntoUserEmailField("2122@wp.pl");
 
         loginPage.typeIntoUserPasswordField("Tes34tyMeewww1");

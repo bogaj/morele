@@ -1,10 +1,12 @@
 package pageObjects;
 
+import driver.DriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import waits.WaitForElement;
 
 public class LoginPage {
     @FindBy(xpath = "//input[@id='username']")
@@ -22,14 +24,12 @@ public class LoginPage {
     @FindBy(xpath = "//div[@class='mn-item mn-type-danger mn-item-push']")
     private WebElement incorrectLoginPopup;
 
-    public WebDriver driver;
-
-    public LoginPage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver,this); //wywołanie PageFactory w konstruktorze żeby nie duplikować kodu podczas wywołania nowego obiektu
+    public LoginPage() {
+        PageFactory.initElements(DriverManager.getWebDriver(),this); //wywołanie PageFactory w konstruktorze żeby nie duplikować kodu podczas wywołania nowego obiektu
     }
 
     public void typeIntoUserEmailField(String usernameEmail) {
+        WaitForElement.waitUntilElementIsVisible(userEmailField);
         userEmailField.sendKeys(usernameEmail);
     }
 
@@ -42,11 +42,13 @@ public class LoginPage {
     }
 
     public String incorrectEmailLoginNotification() {
+        WaitForElement.waitUntilElementIsVisible(incorrectEmailNotification);
         String wrongEmailNotification = incorrectEmailNotification.getText();
         return wrongEmailNotification;
     }
 
     public String incorrectLoginDataPopup() {
+        WaitForElement.waitUntilElementIsVisible(incorrectLoginPopup);
         String wrongDataPopup = incorrectLoginPopup.getText();
         return wrongDataPopup;
     }

@@ -1,5 +1,6 @@
 package tests;
 
+import driver.DriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
@@ -14,10 +15,10 @@ public class AddProductToWishListTests extends TestBase {
        @Test(priority = 7)
     public void adProductToWishListTest() {
 
-        TopMenuPage topMenuPage = new TopMenuPage(driver);
+        TopMenuPage topMenuPage = new TopMenuPage();
         topMenuPage.clickOnLoginLink();
 
-        LoginPage loginPage = new LoginPage(driver);
+        LoginPage loginPage = new LoginPage();
         loginPage.typeIntoUserEmailField("otua.tamotua@op.pl");
 
         loginPage.typeIntoUserPasswordField("TestyME123$");
@@ -26,24 +27,24 @@ public class AddProductToWishListTests extends TestBase {
 
         assertEquals(topMenuPage.newNameButtonAfterCorrectLogin(), "Witaj");
 
-        CategoryPage categoryPage = new CategoryPage(driver);
+        CategoryPage categoryPage = new CategoryPage();
         categoryPage.choosingTheMainLaptopCategory();
 
-        LaptopCategoryPage laptopCategoryPage = new LaptopCategoryPage(driver);
+        LaptopCategoryPage laptopCategoryPage = new LaptopCategoryPage();
         laptopCategoryPage.selectLaptopAndTabletCategory();
 
-        LaptopAndTabletsCategoryPage laptopAndTabletsCategoryPage = new LaptopAndTabletsCategoryPage(driver);
+        LaptopAndTabletsCategoryPage laptopAndTabletsCategoryPage = new LaptopAndTabletsCategoryPage();
         laptopAndTabletsCategoryPage.selectLaptopCategoryAndGoToLaptopList();
 
-        WebElement addToWishListIcon = driver.findElement(By.xpath("(//i[@class='icon-like'])[3]"));
+        WebElement addToWishListIcon = DriverManager.getWebDriver().findElement(By.xpath("(//i[@class='icon-like'])[3]"));
         addToWishListIcon.click();
 
-        WebElement heartIconToWishList = driver.findElement(By.xpath("(//div[@class='shopping-lists-item '])[1]"));
+        WebElement heartIconToWishList = DriverManager.getWebDriver().findElement(By.xpath("(//div[@class='shopping-lists-item '])[1]"));
         heartIconToWishList.click();
 
    topMenuPage.clickOnWishList();
 
-        WishListPage wishListPage = new WishListPage(driver);
+        WishListPage wishListPage = new WishListPage();
         assertTrue(wishListPage.getProductsAmount().contains("1"));
 
 

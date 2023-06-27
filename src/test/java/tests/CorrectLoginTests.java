@@ -9,10 +9,10 @@ public class CorrectLoginTests extends TestBase {
 
     @Test(priority = 1)
     public void correctLoginTest() {
-        TopMenuPage topMenuPage = new TopMenuPage(driver);
+        TopMenuPage topMenuPage = new TopMenuPage();
         topMenuPage.clickOnLoginLink();
 
-        LoginPage loginPage = new LoginPage(driver);
+        LoginPage loginPage = new LoginPage();
 
         loginPage.typeIntoUserEmailField("otua.tamotua@op.pl");
 

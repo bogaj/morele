@@ -1,5 +1,6 @@
 package pageObjects;
 
+import driver.DriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,17 +12,16 @@ import java.util.List;
 import static org.testng.AssertJUnit.assertTrue;
 
 public class SearchEnginePage {
-    @FindBy(xpath = "(//div[@class='cat-product card'])")
 
-    private WebDriver driver;
+private WebElement searchResult;
 
-    public SearchEnginePage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver,this);
+
+    public SearchEnginePage() {
+        PageFactory.initElements(DriverManager.getWebDriver(),this);
     }
 
     public void searchResultListCompareToSearch(String nameOfProduct) {
-        List<WebElement> searchResult = driver.findElements(By.xpath("(//div[@class='cat-product card'])"));
+        List<WebElement> searchResult = DriverManager.getWebDriver().findElements(By.xpath("(//div[@class='cat-product card'])"));
 
         for (WebElement result : searchResult) {
             String resultText = result.getText();
