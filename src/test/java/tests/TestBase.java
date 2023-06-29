@@ -1,11 +1,13 @@
 package tests;
 
-import driver.DriverManager;
-import driver.DriverUtils;
+import driver.manager.DriverManager;
+import driver.manager.DriverUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+
+import static navigation.AppURLs.APPLICATION_URL;
 
 public class TestBase {
 
@@ -14,7 +16,7 @@ public class TestBase {
     public void beforeTest() {
         DriverManager.getWebDriver();
         DriverUtils.setInitialConfiguration();
-        DriverUtils.navigateToPage("https://www.morele.net");
+        DriverUtils.navigateToPage(APPLICATION_URL);
 
         WebElement cookiesAcceptButton = DriverManager.getWebDriver().findElement(By.xpath("//*[@id=\"cookie_box\"]/div/div/button"));
         cookiesAcceptButton.click();

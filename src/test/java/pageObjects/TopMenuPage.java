@@ -1,9 +1,7 @@
 package pageObjects;
 
-import driver.DriverManager;
-import org.openqa.selenium.By;
+import driver.manager.DriverManager;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
@@ -31,17 +29,21 @@ public class TopMenuPage {
         PageFactory.initElements(DriverManager.getWebDriver(),this);
     }
 
-    public void clickOnLoginLink() {
+    public LoginPage clickOnLoginLink() {
+        WaitForElement.waitUntilElementIsClickable(loginButton);
         loginButton.click();
+        return new LoginPage();
     }
 
-    public void clickOnWishList() {
+    public WishListPage clickOnWishList() {
         wishListButton.click();
+        return new WishListPage();
     }
 
-    public void moveToWelcomeLink() {
+    public TopMenuPage moveToWelcomeLink() {
         Actions actions = new Actions(DriverManager.getWebDriver());
         actions.moveToElement(welcomeSign).perform();
+        return this;
     }
 
     public String newNameButtonAfterCorrectLogin() {
@@ -56,8 +58,9 @@ public class TopMenuPage {
         return loginLinkSign;
     }
 
-    public void typeToSearchEngineFieldAndConfirmByEnter(String nameOfProduct) {
+    public TopMenuPage typeToSearchEngineFieldAndConfirmByEnter(String nameOfProduct) {
         WaitForElement.waitUntilElementIsVisible(searchEngineField);
         searchEngineField.sendKeys(nameOfProduct, Keys.ENTER);
+        return this;
     }
 }

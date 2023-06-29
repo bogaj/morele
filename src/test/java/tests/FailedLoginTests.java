@@ -13,29 +13,26 @@ public class FailedLoginTests extends TestBase {
     public void loginUsingIncorrectEmailTest() {
 
         TopMenuPage topMenuPage = new TopMenuPage();
-        topMenuPage.clickOnLoginLink();
+        topMenuPage.clickOnLoginLink()
 
+                .typeIntoUserEmailField("otua.tamotua")
+                .typeIntoUserPasswordField("TestyME123$")
+                .clickOnLoginButton();
         LoginPage loginPage = new LoginPage();
-        loginPage.typeIntoUserEmailField("otua.tamotua");
-
-        loginPage.typeIntoUserPasswordField("TestyME123$");
-        loginPage.clickOnLoginButton();
-
         assertEquals(loginPage.incorrectEmailLoginNotification(), "Podaj poprawny adres e-mail!");
 
     }
+
     @Test(priority = 4)
     public void loginUsingIncorrectDataTest() {
 
         TopMenuPage topMenuPage = new TopMenuPage();
-        topMenuPage.clickOnLoginLink();
+        topMenuPage.clickOnLoginLink()
+                .typeIntoUserEmailField("2122@wp.pl")
+                .typeIntoUserPasswordField("Tes34tyMeewww1")
+                .clickOnLoginButton();
         LoginPage loginPage = new LoginPage();
-        loginPage.typeIntoUserEmailField("2122@wp.pl");
-
-        loginPage.typeIntoUserPasswordField("Tes34tyMeewww1");
-        loginPage.clickOnLoginButton();
-
-        assertEquals(loginPage.incorrectLoginDataPopup(),"Dane logowania nie są poprawne. Zalogowanie nie powiodło się.");
+        assertEquals(loginPage.incorrectLoginDataPopup(), "Dane logowania nie są poprawne. Zalogowanie nie powiodło się.");
 
     }
 

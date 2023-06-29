@@ -3,6 +3,7 @@ package tests;
 import org.testng.annotations.Test;
 import pageObjects.LoginPage;
 import pageObjects.TopMenuPage;
+
 import static org.testng.AssertJUnit.assertEquals;
 
 public class CorrectLoginTests extends TestBase {
@@ -10,15 +11,10 @@ public class CorrectLoginTests extends TestBase {
     @Test(priority = 1)
     public void correctLoginTest() {
         TopMenuPage topMenuPage = new TopMenuPage();
-        topMenuPage.clickOnLoginLink();
-
-        LoginPage loginPage = new LoginPage();
-
-        loginPage.typeIntoUserEmailField("otua.tamotua@op.pl");
-
-        loginPage.typeIntoUserPasswordField("TestyME123$");
-            loginPage.clickOnLoginButton();
-            topMenuPage.newNameButtonAfterCorrectLogin();
+        topMenuPage.clickOnLoginLink()
+                .typeIntoUserEmailField("otua.tamotua@op.pl")
+                .typeIntoUserPasswordField("TestyME123$")
+                .clickOnLoginButton();
 
         assertEquals(topMenuPage.newNameButtonAfterCorrectLogin(), "Witaj");
     }

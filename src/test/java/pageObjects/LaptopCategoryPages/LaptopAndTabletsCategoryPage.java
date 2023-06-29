@@ -1,7 +1,6 @@
 package pageObjects.LaptopCategoryPages;
 
-import driver.DriverManager;
-import org.openqa.selenium.WebDriver;
+import driver.manager.DriverManager;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -18,8 +17,9 @@ public class LaptopAndTabletsCategoryPage {
         PageFactory.initElements(DriverManager.getWebDriver(),this);
     }
 
-    public void selectLaptopCategoryAndGoToLaptopList() {
+    public LaptopCategoryPage selectLaptopCategoryAndGoToLaptopList() {
         WaitForElement.waitUntilElementIsClickable(laptopButton);
         laptopButton.click();
+        return new LaptopCategoryPage();
     }
 }

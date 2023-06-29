@@ -1,8 +1,6 @@
 package pageObjects;
 
-import driver.DriverManager;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import driver.manager.DriverManager;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -28,17 +26,20 @@ public class LoginPage {
         PageFactory.initElements(DriverManager.getWebDriver(),this); //wywołanie PageFactory w konstruktorze żeby nie duplikować kodu podczas wywołania nowego obiektu
     }
 
-    public void typeIntoUserEmailField(String usernameEmail) {
+    public LoginPage typeIntoUserEmailField(String usernameEmail) {
         WaitForElement.waitUntilElementIsVisible(userEmailField);
         userEmailField.sendKeys(usernameEmail);
+        return this;
     }
 
-    public void typeIntoUserPasswordField(String password) {
+    public LoginPage typeIntoUserPasswordField(String password) {
         passwordField.sendKeys(password);
+        return this;
     }
 
-    public void clickOnLoginButton() {
+    public TopMenuPage clickOnLoginButton() {
         loginButton.click();
+        return new TopMenuPage();
     }
 
     public String incorrectEmailLoginNotification() {

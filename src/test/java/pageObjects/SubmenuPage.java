@@ -1,7 +1,6 @@
 package pageObjects;
 
-import driver.DriverManager;
-import org.openqa.selenium.WebDriver;
+import driver.manager.DriverManager;
 import org.openqa.selenium.support.PageFactory;
 
 public class SubmenuPage {

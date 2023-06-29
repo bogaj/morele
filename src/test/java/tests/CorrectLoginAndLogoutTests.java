@@ -1,8 +1,7 @@
 package tests;
 
-import driver.DriverManager;
+import driver.manager.DriverManager;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 import pageObjects.LoginPage;
@@ -17,15 +16,11 @@ public class CorrectLoginAndLogoutTests extends TestBase {
 
     public void asUserLoginAndLogoutUsingValidLoginAndPasswordTest() {
         TopMenuPage topMenuPage = new TopMenuPage();
-        topMenuPage.clickOnLoginLink();
-
-        LoginPage loginPage = new LoginPage();
-        loginPage.typeIntoUserEmailField("otua.tamotua@op.pl");
-
-        loginPage.typeIntoUserPasswordField("TestyME123$");
-        loginPage.clickOnLoginButton();
-
-        topMenuPage.newNameButtonAfterCorrectLogin();
+        topMenuPage.clickOnLoginLink()
+       .typeIntoUserEmailField("otua.tamotua@op.pl")
+        .typeIntoUserPasswordField("TestyME123$")
+       .clickOnLoginButton()
+       .newNameButtonAfterCorrectLogin();
         assertEquals(topMenuPage.newNameButtonAfterCorrectLogin(), "Witaj");
 
        topMenuPage.moveToWelcomeLink();

@@ -1,9 +1,10 @@
 package pageObjects;
 
-import driver.DriverManager;
+import driver.manager.DriverManager;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import pageObjects.LaptopCategoryPages.LaptopCategoryPage;
 import waits.WaitForElement;
 
 public class CategoryPage {
@@ -15,8 +16,9 @@ private WebElement laptopCategoryLink;
         PageFactory.initElements(DriverManager.getWebDriver(),this);
     }
 
-    public void choosingTheMainLaptopCategory (){
+    public LaptopCategoryPage choosingTheMainLaptopCategory (){
         WaitForElement.waitUntilElementIsClickable(laptopCategoryLink);
         laptopCategoryLink.click();
+        return new LaptopCategoryPage();
     }
 }

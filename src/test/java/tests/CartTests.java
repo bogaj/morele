@@ -1,6 +1,6 @@
 package tests;
 
-import driver.DriverManager;
+import driver.manager.DriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
