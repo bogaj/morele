@@ -1,6 +1,8 @@
 package pageObjects;
 
 import driver.manager.DriverManager;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -8,8 +10,10 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import waits.WaitForElement;
 
-public class TopMenuPage {
 
+
+public class TopMenuPage {
+private Logger logger = LogManager.getRootLogger();
     @FindBy(xpath = "//span[contains(text(),'Zaloguj si')]")
     private WebElement loginButton;
 
@@ -32,6 +36,7 @@ public class TopMenuPage {
     public LoginPage clickOnLoginLink() {
         WaitForElement.waitUntilElementIsClickable(loginButton);
         loginButton.click();
+        logger.info("Kliknięcie linku do logowania się");
         return new LoginPage();
     }
 
@@ -49,6 +54,7 @@ public class TopMenuPage {
     public String newNameButtonAfterCorrectLogin() {
         WaitForElement.waitUntilElementIsVisible(welcomeSign);
         String welcomeAfterCorrectLoginSign = welcomeSign.getText();
+        logger.info("Zmiana nazwy linku do logowania po prawidłowym zalogowaniu się");
         return welcomeAfterCorrectLoginSign;
     }
 

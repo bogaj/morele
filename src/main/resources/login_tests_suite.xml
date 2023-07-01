@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+
+<suite name="Morele login tests">
+
+    <test name="Negative Login Tests">
+        <classes>
+            <class name="tests.FailedLoginTests"/>
+        </classes>
+    </test>
+    <test name="Positive Login Tests">
+        <classes>
+            <class name="tests.CorrectLoginTests"/>
+            <class name="tests.CorrectLoginAndLogoutTests"/>
+        </classes>
+    </test>
+
+</suite>

@@ -12,7 +12,7 @@ public class DriverUtils {
     public WebDriver driver;
 
     public static void setInitialConfiguration() {
-        ChromeOptions options = new ChromeOptions();
+      /*  ChromeOptions options = new ChromeOptions();
         Map<String, Object> prefs = new HashMap<>();
         prefs.put("profile.default_content_setting_values.notifications", 2);
         prefs.put("profile.default_content_setting_values.geolocation", 2);
@@ -29,7 +29,8 @@ public class DriverUtils {
 
         WebDriver driver = new ChromeDriver(options);
         DriverManager.initialize(driver);
-
+*/
+DriverManager.getWebDriver().manage().window().maximize();
         
     }
 
