@@ -1,5 +1,6 @@
 package driver.manager;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -11,6 +12,7 @@ public class DriverUtils {
 
     public WebDriver driver;
 
+    @Step("Maksymalizacja okna przeglądarki")
     public static void setInitialConfiguration() {
       /*  ChromeOptions options = new ChromeOptions();
         Map<String, Object> prefs = new HashMap<>();
