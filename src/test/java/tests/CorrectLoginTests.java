@@ -1,10 +1,8 @@
 package tests;
-import io.qameta.allure.Allure;
 import io.qameta.allure.Description;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import org.testng.annotations.Test;
-import pageObjects.LoginPage;
 import pageObjects.TopMenuPage;
 
 import static org.testng.AssertJUnit.assertEquals;
@@ -19,8 +17,6 @@ public class CorrectLoginTests extends TestBase {
         topMenuPage.clickOnLoginLink()
                 .typeIntoUserEmailField("otua.tamotua@op.pl")
                 .typeIntoUserPasswordField("TestyME123$")
-                .clickOnLoginButton();
-
-        assertEquals(topMenuPage.newNameButtonAfterCorrectLogin(), "Witaj");
+                .clickOnLoginButton().assertThatNewNameButtonAfterCorrectLoginIsDisplayed("Witaj");
     }
 }

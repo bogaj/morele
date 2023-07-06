@@ -1,13 +1,18 @@
 package pageObjects;
 
 import driver.manager.DriverManager;
+import generic.assertions.AssertWebElement;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import waits.WaitForElement;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class LoginPage {
+    private Logger logger = LogManager.getLogger(LoginPage.class);
     @FindBy(xpath = "//input[@id='username']")
     private WebElement userEmailField;
 
@@ -43,11 +48,12 @@ public class LoginPage {
         loginButton.click();
         return new TopMenuPage();
     }
-@Step("Pojawienie się informacji o niepoprawnym logowaniu")
-    public String incorrectEmailLoginNotification() {
+@Step("Assercja czy pojawia się informacja o niepoprawnym logowaniu")
+    public LoginPage assertThatIncorrectEmailNotificationIsDisplayed(String wrongEmailNotification) {
+        logger.info("Sprawdzenie czy wiadomość {} pojawia się",wrongEmailNotification);
         WaitForElement.waitUntilElementIsVisible(incorrectEmailNotification);
-        String wrongEmailNotification = incorrectEmailNotification.getText();
-        return wrongEmailNotification;
+    AssertWebElement.assertThat(incorrectEmailNotification).isDisplayed().hasText(wrongEmailNotification);
+        return this;
     }
 
     public String incorrectLoginDataPopup() {

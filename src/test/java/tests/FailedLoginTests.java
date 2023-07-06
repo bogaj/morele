@@ -16,15 +16,15 @@ public class FailedLoginTests extends TestBase {
     @Description("Logowanie się za pomocą niepoprawnego adresu e-mail bez '@'")
     @Severity(SeverityLevel.NORMAL)
     public void loginUsingIncorrectEmailTest() {
-
+        LoginPage loginPage = new LoginPage();
         TopMenuPage topMenuPage = new TopMenuPage();
         topMenuPage.clickOnLoginLink()
 
                 .typeIntoUserEmailField("otua.tamotua")
                 .typeIntoUserPasswordField("TestyME123$")
                 .clickOnLoginButton();
-        LoginPage loginPage = new LoginPage();
-        assertEquals(loginPage.incorrectEmailLoginNotification(), "Podaj poprawny adres e-mail!");
+
+     loginPage.assertThatIncorrectEmailNotificationIsDisplayed("Podaj poprawny adres e-mail!");
 
     }
 

@@ -5,8 +5,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 import pageObjects.*;
-import pageObjects.LaptopCategoryPages.LaptopAndTabletsCategoryPage;
-import pageObjects.LaptopCategoryPages.LaptopCategoryPage;
 
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertTrue;
@@ -21,9 +19,8 @@ public class AddProductToWishListTests extends TestBase {
                 .typeIntoUserEmailField("otua.tamotua@op.pl")
                 .typeIntoUserPasswordField("TestyME123$")
                 .clickOnLoginButton()
-                .newNameButtonAfterCorrectLogin();
+                .assertThatNewNameButtonAfterCorrectLoginIsDisplayed("Witaj");
 
-        assertEquals(topMenuPage.newNameButtonAfterCorrectLogin(), "Witaj");
 
         CategoryPage categoryPage = new CategoryPage();
         categoryPage.choosingTheMainLaptopCategory()

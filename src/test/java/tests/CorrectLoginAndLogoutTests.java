@@ -23,14 +23,15 @@ public class CorrectLoginAndLogoutTests extends TestBase {
                 .typeIntoUserEmailField("otua.tamotua@op.pl")
                 .typeIntoUserPasswordField("TestyME123$")
                 .clickOnLoginButton()
-                .newNameButtonAfterCorrectLogin();
-        assertEquals(topMenuPage.newNameButtonAfterCorrectLogin(), "Witaj");
+                .assertThatNewNameButtonAfterCorrectLoginIsDisplayed("Witaj");
+
 
         topMenuPage.moveToWelcomeLink();
 
         WebElement logoutButton = DriverManager.getWebDriver().findElement(By.xpath("//a[normalize-space()='Wyloguj']"));
         logoutButton.click();
-        assertTrue(topMenuPage.loginLinkAfterCorrectLogout().contains("Zaloguj się"));
+        topMenuPage.assertThatLoginLinkAfterCorrectLogoutIsDisplayed("Zaloguj się\nZałóż konto");
+
 
     }
 

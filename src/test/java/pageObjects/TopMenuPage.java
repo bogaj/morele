@@ -1,6 +1,7 @@
 package pageObjects;
 
 import driver.manager.DriverManager;
+import generic.assertions.AssertWebElement;
 import io.qameta.allure.Step;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,7 +15,7 @@ import waits.WaitForElement;
 
 
 public class TopMenuPage {
-private Logger logger = LogManager.getRootLogger();
+private Logger logger = LogManager.getLogger(LoginPage.class);
     @FindBy(xpath = "//span[contains(text(),'Zaloguj si')]")
     private WebElement loginButton;
 
@@ -52,18 +53,19 @@ private Logger logger = LogManager.getRootLogger();
         actions.moveToElement(welcomeSign).perform();
         return this;
     }
-@Step("Poprawna zmiana nazwy przycisku do logowawania po poprawnym zalogownaiu się")
-    public String newNameButtonAfterCorrectLogin() {
+@Step("Asercja czy następuje zmiana nazwy przycisku do logowawania zalogowaniu się")
+    public TopMenuPage assertThatNewNameButtonAfterCorrectLoginIsDisplayed(String welcomeAfterCorrectLoginSign) {
+        logger.info("Sprawdzenie czy po zalogowaniu zmieniła się nazwa przycisku do zalogwania na {}",welcomeAfterCorrectLoginSign);
         WaitForElement.waitUntilElementIsVisible(welcomeSign);
-        String welcomeAfterCorrectLoginSign = welcomeSign.getText();
-        logger.info("Zmiana nazwy linku do logowania po prawidłowym zalogowaniu się");
-        return welcomeAfterCorrectLoginSign;
+    AssertWebElement.assertThat(welcomeSign).isDisplayed().hasText(welcomeAfterCorrectLoginSign);
+        return this;
     }
-@Step("Sprawdzenie czy przycisk do logowania wyświetla 'Zaloguj się' po poprawnym wylogowaniu")
-    public String loginLinkAfterCorrectLogout() {
+@Step("Asercja czy przycisk do logowania wyświetla 'Zaloguj się' po poprawnym wylogowaniu")
+    public TopMenuPage assertThatLoginLinkAfterCorrectLogoutIsDisplayed(String loginLinkSign) {
+        logger.info("Sprawdzenie czy przycisk do logowania wyświetla {} po poprawnym wylogowaniu",loginLinkSign);
         WaitForElement.waitUntilElementIsVisible(loginButton);
-        String loginLinkSign = loginButton.getText();
-        return loginLinkSign;
+    AssertWebElement.assertThat(loginButton).isDisplayed().hasText(loginLinkSign);
+        return this;
     }
 @Step("Wpisanie w wyszukiwarkę wyszukiwanego produktu - {nameOfProduct} i potwierdzenie")
     public TopMenuPage typeToSearchEngineFieldAndConfirmByEnter(String nameOfProduct) {
