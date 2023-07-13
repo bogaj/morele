@@ -3,13 +3,16 @@
 
 
 <suite name="Morele login tests">
-
+<listeners>
+    <listener class-name="utils.testng.listeners.TestListener"></listener>
+</listeners>
     <test name="Negative Login Tests">
         <classes>
             <class name="tests.FailedLoginTests"/>
         </classes>
     </test>
     <test name="Positive Login Tests">
+
         <classes>
             <class name="tests.CorrectLoginTests"/>
             <class name="tests.CorrectLoginAndLogoutTests"/>
