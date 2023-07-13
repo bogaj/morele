@@ -5,6 +5,7 @@
 <suite name="Morele login tests">
 <listeners>
     <listener class-name="utils.testng.listeners.TestListener"></listener>
+    <listener class-name="utils.testng.listeners.AnnotationTransformer"></listener>
 </listeners>
     <test name="Negative Login Tests">
         <classes>
