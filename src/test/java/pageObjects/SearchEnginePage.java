@@ -9,14 +9,12 @@ import java.util.List;
 
 import static org.testng.AssertJUnit.assertTrue;
 
-public class SearchEnginePage {
+public class SearchEnginePage extends BasePage {
 
 private WebElement searchResult;
 
 
-    public SearchEnginePage() {
-        PageFactory.initElements(DriverManager.getWebDriver(),this);
-    }
+
 
     public void searchResultListCompareToSearch(String nameOfProduct) {
         List<WebElement> searchResult = DriverManager.getWebDriver().findElements(By.xpath("(//div[@class='cat-product card'])"));

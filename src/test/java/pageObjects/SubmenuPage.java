@@ -3,10 +3,8 @@ package pageObjects;
 import driver.manager.DriverManager;
 import org.openqa.selenium.support.PageFactory;
 
-public class SubmenuPage {
+public class SubmenuPage extends BasePage {
 
 
-    public SubmenuPage() {
-        PageFactory.initElements(DriverManager.getWebDriver(),this);
-    }
+
 }

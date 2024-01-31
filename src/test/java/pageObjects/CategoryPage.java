@@ -7,14 +7,12 @@ import org.openqa.selenium.support.PageFactory;
 import pageObjects.LaptopCategoryPages.LaptopCategoryPage;
 import waits.WaitForElement;
 
-public class CategoryPage {
+public class CategoryPage extends BasePage{
 @FindBy(xpath ="//span[normalize-space()='Laptopy']" )
 private WebElement laptopCategoryLink;
 
 
-    public CategoryPage() {
-        PageFactory.initElements(DriverManager.getWebDriver(),this);
-    }
+
 
     public LaptopCategoryPage choosingTheMainLaptopCategory (){
         WaitForElement.waitUntilElementIsClickable(laptopCategoryLink);

@@ -16,7 +16,7 @@ public class CorrectLoginTests extends TestBase {
     public void correctLoginTest() {
         TopMenuPage topMenuPage = new TopMenuPage();
         topMenuPage.clickOnLoginLink()
-                .typeIntoUserEmailField("otua.tamotua@op.pll")
+                .typeIntoUserEmailField("otua.tamotua@op.pl")
                 .typeIntoUserPasswordField("TestyME123$")
                 .clickOnLoginButton().assertThatNewNameButtonAfterCorrectLoginIsDisplayed("Witaj");
     }

@@ -11,8 +11,8 @@ import waits.WaitForElement;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class LoginPage {
-    private Logger logger = LogManager.getLogger(LoginPage.class);
+public class LoginPage extends BasePage {
+    //private Logger logger = LogManager.getLogger(LoginPage.class);
     @FindBy(xpath = "//input[@id='username']")
     private WebElement userEmailField;
 
@@ -28,9 +28,7 @@ public class LoginPage {
     @FindBy(xpath = "//div[@class='mn-item mn-type-danger mn-item-push']")
     private WebElement incorrectLoginPopup;
 
-    public LoginPage() {
-        PageFactory.initElements(DriverManager.getWebDriver(),this); //wywołanie PageFactory w konstruktorze żeby nie duplikować kodu podczas wywołania nowego obiektu
-    }
+
 @Step("Wpisanie adresu e-mail: {usernameEmail}")
     public LoginPage typeIntoUserEmailField(String usernameEmail) {
         WaitForElement.waitUntilElementIsVisible(userEmailField);
@@ -48,9 +46,9 @@ public class LoginPage {
         loginButton.click();
         return new TopMenuPage();
     }
-@Step("Assercja czy pojawia się informacja o niepoprawnym logowaniu")
+@Step("Assercja: czy pojawia się informacja o niepoprawnym logowaniu")
     public LoginPage assertThatIncorrectEmailNotificationIsDisplayed(String wrongEmailNotification) {
-        logger.info("Sprawdzenie czy wiadomość {} pojawia się",wrongEmailNotification);
+        log().info("Sprawdzenie czy wiadomość {} pojawia się",wrongEmailNotification);
         WaitForElement.waitUntilElementIsVisible(incorrectEmailNotification);
     AssertWebElement.assertThat(incorrectEmailNotification).isDisplayed().hasText(wrongEmailNotification);
         return this;

@@ -14,8 +14,8 @@ import waits.WaitForElement;
 
 
 
-public class TopMenuPage {
-private Logger logger = LogManager.getLogger(LoginPage.class);
+public class TopMenuPage extends BasePage{
+
     @FindBy(xpath = "//span[contains(text(),'Zaloguj si')]")
     private WebElement loginButton;
 
@@ -30,16 +30,13 @@ private Logger logger = LogManager.getLogger(LoginPage.class);
 
 
 
-    public TopMenuPage() {
 
-        PageFactory.initElements(DriverManager.getWebDriver(),this);
-    }
 
     @Step("Klinięcie w link do logowania się")
     public LoginPage clickOnLoginLink() {
         WaitForElement.waitUntilElementIsClickable(loginButton);
         loginButton.click();
-        logger.info("Kliknięcie linku do logowania się");
+        log().info("Kliknięcie linku do logowania się");
         return new LoginPage();
     }
 @Step("Wybranie przycisku Lista Życzeń")
@@ -55,14 +52,14 @@ private Logger logger = LogManager.getLogger(LoginPage.class);
     }
 @Step("Asercja czy następuje zmiana nazwy przycisku do logowawania zalogowaniu się")
     public TopMenuPage assertThatNewNameButtonAfterCorrectLoginIsDisplayed(String welcomeAfterCorrectLoginSign) {
-        logger.info("Sprawdzenie czy po zalogowaniu zmieniła się nazwa przycisku do zalogwania na {}",welcomeAfterCorrectLoginSign);
+        log().info("Sprawdzenie czy po zalogowaniu zmieniła się nazwa przycisku do zalogwania na {}",welcomeAfterCorrectLoginSign);
         WaitForElement.waitUntilElementIsVisible(welcomeSign);
     AssertWebElement.assertThat(welcomeSign).isDisplayed().hasText(welcomeAfterCorrectLoginSign);
         return this;
     }
 @Step("Asercja czy przycisk do logowania wyświetla 'Zaloguj się' po poprawnym wylogowaniu")
     public TopMenuPage assertThatLoginLinkAfterCorrectLogoutIsDisplayed(String loginLinkSign) {
-        logger.info("Sprawdzenie czy przycisk do logowania wyświetla {} po poprawnym wylogowaniu",loginLinkSign);
+        log().info("Sprawdzenie czy przycisk do logowania wyświetla {} po poprawnym wylogowaniu",loginLinkSign);
         WaitForElement.waitUntilElementIsVisible(loginButton);
     AssertWebElement.assertThat(loginButton).isDisplayed().hasText(loginLinkSign);
         return this;
